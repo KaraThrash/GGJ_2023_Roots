@@ -17,6 +17,8 @@ using InworldPacket = Inworld.Packets.InworldPacket;
 using PacketId = Inworld.Packets.PacketId;
 using Routing = Inworld.Packets.Routing;
 using TextEvent = Inworld.Packets.TextEvent;
+
+
 namespace Inworld
 {
     public class InworldCharacter : MonoBehaviour
@@ -173,6 +175,7 @@ namespace Inworld
                 m_Interactions?.CompleteUtterance(m_CurrentlyPlayingUtterance);
             m_CurrentlyPlayingUtterance = null;
             InworldController.Instance.TTSEnd(ID);
+            
         }
         void OnCharacterChanged(InworldCharacter oldChar, InworldCharacter newChar)
         {

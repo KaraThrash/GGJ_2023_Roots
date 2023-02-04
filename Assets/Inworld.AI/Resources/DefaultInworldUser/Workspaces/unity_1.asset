@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679553faa086cdc48a58556300e27230, type: 3}
+  m_Name: unity_1
+  m_EditorClassIdentifier: 
+  title: unity
+  fullName: workspaces/default-szd58jesvbktwcwhcyf2gg
+  characters:
+  - {fileID: 11400000, guid: 4e069a629e6e8034abfd4d7ffe0a1aee, type: 2}
+  scenes:
+  - {fileID: 11400000, guid: 2e352a8033a79a04b862801d868a8d94, type: 2}
+  integrations:
+  - {fileID: 11400000, guid: a9102a84e766e0842a690bd80d7e8a9e, type: 2}
+  index: 1
