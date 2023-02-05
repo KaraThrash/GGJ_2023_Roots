@@ -22,10 +22,11 @@ namespace Inworld.Sample.UI
         /// <param name="text">The bubble's content</param>
         public void SetBubble(string charName, Texture2D thumbnail, string text = null)
         {
-            m_CharacterName.text = charName;
+            m_CharacterName.text = charName + " ---- ";
             m_Icon.texture = thumbnail;
-            if (!string.IsNullOrEmpty(text))
-                m_TextField.text = text;
+            string newtext = " RED " + text + " ----- ";
+            if (!string.IsNullOrEmpty(newtext))
+                m_TextField.text = newtext;
         }
 
         #region Inspector Variables
@@ -41,7 +42,7 @@ namespace Inworld.Sample.UI
         public string Text
         {
             get => m_TextField.text;
-            set => m_TextField.text = value;
+            set => m_TextField.text = value + "---";
         }
         /// <summary>
         ///     Get the bubble's height.
@@ -53,7 +54,7 @@ namespace Inworld.Sample.UI
         public string CharacterName
         {
             get => m_CharacterName.text;
-            set => m_CharacterName.text = value;
+            set => m_CharacterName.text = value + "--";
         }
         /// <summary>
         ///     Get/Set the Thumbnail of the bubble.

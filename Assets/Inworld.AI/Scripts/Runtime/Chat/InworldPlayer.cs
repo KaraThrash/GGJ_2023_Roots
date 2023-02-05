@@ -130,7 +130,8 @@ namespace Inworld.Sample
                         }
                     }
                 }
-                m_Bubbles[item.UtteranceId].Text = item.Event.Text;
+
+                m_Bubbles[item.UtteranceId].Text = item.Event.Text + "- -";
                 _SetContentHeight();
             }
         }

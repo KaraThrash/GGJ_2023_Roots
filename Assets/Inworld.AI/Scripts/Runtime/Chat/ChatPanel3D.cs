@@ -63,7 +63,7 @@ namespace Inworld.Sample.UI
                             m_Dots.SetActive(false);
                     }
                 }
-                m_Bubbles[item.UtteranceId].Text = item.Event.Text;
+                m_Bubbles[item.UtteranceId].Text = item.Event.Text + " - ";
             }
         }
         void _ClearHistoryLog()
