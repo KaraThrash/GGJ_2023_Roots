@@ -90,14 +90,14 @@ namespace Inworld.Util
         {
             get
             {
-                if (Application.isPlaying) 
+                if (Application.isPlaying)
                 {
                     string folder = $"{Application.persistentDataPath}/{InworldAI.Settings.ThumbnailPath}";
                     if (!File.Exists(folder))
                         Directory.CreateDirectory(folder);
                     return $"{folder}/{FileName}.png";
                 }
-                else 
+                else
                 {
                     string userFolder = $"{k_ResourcePath}/{InworldAI.User.Name}";
                     if (!File.Exists(userFolder))

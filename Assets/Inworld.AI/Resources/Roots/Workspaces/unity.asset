@@ -16,25 +16,10 @@ MonoBehaviour:
   fullName: workspaces/default-szd58jesvbktwcwhcyf2gg
   characters:
   - {fileID: 11400000, guid: ef7bd3557d40bac4894ed46f457dee04, type: 2}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 3e501755902de084d90468aafb1c0dcc, type: 2}
-  - {fileID: 0}
   - {fileID: 11400000, guid: df5a625a5b411d14d8b624931abad5a0, type: 2}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 92465dcc14be715499386e6f8a5d5f10, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 3c6894a1c92fcea4aa9ad0506cb509c6, type: 2}
-  - {fileID: 0}
   scenes:
   - {fileID: 11400000, guid: 9b968e0458477264eae34d20574c062b, type: 2}
   - {fileID: 11400000, guid: 2487a0466479c7048a102d4ef5b378c2, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   integrations:
   - {fileID: 11400000, guid: ab953128c5677954a831cfbbe634b992, type: 2}
   index: 0

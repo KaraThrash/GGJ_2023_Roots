@@ -28,7 +28,7 @@ namespace Inworld.Sample
         readonly CameraState m_TargetCameraState = new CameraState();
         void Update()
         {
-            // Exit Sample  
+            // Exit Sample
             if (Input.GetKey(KeyCode.Escape))
             {
                 Application.Quit();
@@ -39,14 +39,14 @@ namespace Inworld.Sample
             // Hide and lock cursor when right mouse button pressed
             if (Input.GetMouseButtonDown(0))
             {
-                Cursor.lockState = CursorLockMode.Locked;
+              //  Cursor.lockState = CursorLockMode.Locked;
             }
 
             // Unlock and show cursor when right mouse button released
             if (Input.GetMouseButtonUp(0))
             {
-                Cursor.visible = !Cursor.visible;
-                Cursor.lockState = Cursor.visible ? CursorLockMode.None : CursorLockMode.Locked;
+            //    Cursor.visible = !Cursor.visible;
+            //    Cursor.lockState = Cursor.visible ? CursorLockMode.None : CursorLockMode.Locked;
             }
 
             // Rotation

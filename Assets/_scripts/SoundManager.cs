@@ -14,6 +14,8 @@ public class SoundManager : MonoBehaviour
   public AudioClip mainTheme;
   public AudioClip rimshot;
   public AudioClip sadTrombone;
+  public AudioClip outroSound;
+  public AudioClip weirdSound;
 
     public void PlaySound(Prompt _sound)
     {
@@ -21,6 +23,8 @@ public class SoundManager : MonoBehaviour
       if(source == null){return;}
       if(_sound == Prompt.intro){clip = mainTheme;}
       if(_sound == Prompt.sad){clip = sadTrombone;}
+      if(_sound == Prompt.outro){clip = outroSound;}
+      if(_sound == Prompt.weird){clip = weirdSound;}
       if(clip != null)
       {
         source.clip = clip;
