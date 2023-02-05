@@ -22,9 +22,9 @@ MonoBehaviour:
   index: 0
   triggers: []
   scenes:
-  - workspaces/default-szd58jesvbktwcwhcyf2gg/scenes/test
   - workspaces/default-szd58jesvbktwcwhcyf2gg/scenes/test2
+  - workspaces/default-szd58jesvbktwcwhcyf2gg/scenes/test
   modelUri: https://storage.googleapis.com/inworld-ai-usercontent-prod/rpm_model/344a8a47-4249-438d-a502-d694ad964b4b.glb
   posUri: https://storage.googleapis.com/inworld-ai-usercontent-prod/rpm_image/344a8a47-4249-438d-a502-d694ad964b4b_posture.jpg
   previewImgUri: https://storage.googleapis.com/inworld-ai-usercontent-prod/rpm_image/344a8a47-4249-438d-a502-d694ad964b4b_portrait.jpg
-  characterID: 5eb891b9-2ece-4e90-99f2-66887c3956c3
+  characterID: f95c7b0c-9f67-4969-9518-51e4ee68afa6

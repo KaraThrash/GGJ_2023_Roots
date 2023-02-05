@@ -24,7 +24,7 @@ namespace Inworld.Sample.UI
         {
             m_CharacterName.text = charName + " ---- ";
             m_Icon.texture = thumbnail;
-            string newtext = " RED " + text + " ----- ";
+            string newtext =  text + " ----- ";
             if (!string.IsNullOrEmpty(newtext))
                 m_TextField.text = newtext;
         }

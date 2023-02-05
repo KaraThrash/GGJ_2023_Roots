@@ -130,9 +130,13 @@ namespace Inworld.Sample
                         }
                     }
                 }
+                if(item.Event.SourceType != Grpc.TextEvent.Types.SourceType.TypedIn)
+                {
 
-                m_Bubbles[item.UtteranceId].Text = item.Event.Text + "- -";
-                _SetContentHeight();
+                  m_Bubbles[item.UtteranceId].Text = item.Event.Text + "- -";
+                  _SetContentHeight();
+                }
+
             }
         }
         void _ClearHistoryLog()

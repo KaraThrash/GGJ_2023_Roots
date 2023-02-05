@@ -175,7 +175,7 @@ namespace Inworld
                 m_Interactions?.CompleteUtterance(m_CurrentlyPlayingUtterance);
             m_CurrentlyPlayingUtterance = null;
             InworldController.Instance.TTSEnd(ID);
-            
+
         }
         void OnCharacterChanged(InworldCharacter oldChar, InworldCharacter newChar)
         {

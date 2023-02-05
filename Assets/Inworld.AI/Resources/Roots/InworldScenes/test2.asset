@@ -17,6 +17,6 @@ MonoBehaviour:
   description: a funny scene
   characters:
   - workspaces/default-szd58jesvbktwcwhcyf2gg/characters/funny
-  - workspaces/default-szd58jesvbktwcwhcyf2gg/characters/the_queen_of_hearts_fix
+  - workspaces/default-szd58jesvbktwcwhcyf2gg/characters/regular_burgerking
   triggers: []
   index: 0
