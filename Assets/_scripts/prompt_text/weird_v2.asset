@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70cbbb43203deae4cae527b54508e1da, type: 3}
+  m_Name: weird_v2
+  m_EditorClassIdentifier: 
+  text_input:
+  - on second thought, let's move on.
+  - dance for me, puppet!
+  - I like turtles, do you like turtles
+  - what's your favorite geologic period?
+  - which reminds me, did you catch the cricket match last night?
+  - can I axe you a question about that?
+  - speaking of which, what time is it?
+  - feed me, Seymour!
+  - I am a jelly donut!
+  - like I always say, you can't make an omlette without a frying pan!
+  text_response: []

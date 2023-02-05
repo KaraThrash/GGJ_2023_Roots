@@ -7,6 +7,7 @@ using Inworld.Util;
 using System.Linq;
 using TMPro;
 using Inworld;
+using Inworld.Sample;
 
 
 public enum Prompt
@@ -16,6 +17,8 @@ public enum Prompt
 
 public class ShowManager : MonoBehaviour
 {
+  private SoundManager soundManager;
+
     public int stage = 0;
     public int score;
     public Prompt current_prompt;
@@ -26,6 +29,7 @@ public class ShowManager : MonoBehaviour
     public float timer_waitingForPlayer;
     public float timer_bufferNextLine;
 
+    public InworldPlayer player;
     public InworldCharacter host;
     public InworldCharacter guest;
     public TMP_Text text_result;
@@ -35,12 +39,18 @@ public class ShowManager : MonoBehaviour
     public SO_hostPrompt introPrompts;
     public SO_hostPrompt outroPrompts;
     public SO_hostPrompt weirdPrompts;
+    public SO_hostPrompt hostQuestionList;
+
     public string lastline;
+    public string host_question;
 
     void Start()
     {
+      soundManager = GetComponent<SoundManager>();
         if (host) { host.Event.AddListener(HostDoneTalking); }
         if (guest) { guest.Event.AddListener(GuestDoneTalking); }
+        // current_prompt = personality[(int)Random.Range(0, personality.Count)];
+        //  SendText(current_prompt);
 
     }
 
@@ -54,7 +64,18 @@ public class ShowManager : MonoBehaviour
                 timer_bufferNextLine = -1;
                  if(stage == 0)
                  {
-                    SendText(Random.Range(0, 5));
+                    current_prompt = personality[(int)Random.Range(0, personality.Count)];
+                    SendText(current_prompt);
+
+                 }
+                 else if(stage == 1 || stage == 3)
+                 {
+                    guest.SendText(lastline);
+
+                 }
+                 else if(stage == 4 )
+                 {
+                    host.SendText(lastline);
 
                  }
                  else
@@ -64,33 +85,6 @@ public class ShowManager : MonoBehaviour
                  }
             }
         }
-        //if (timer_bufferNextLine != -1)
-        //{
-        //    if (timer_bufferNextLine > 0)
-        //    {
-        //        timer_bufferNextLine -= Time.deltaTime;
-        //        if (timer_bufferNextLine <= 0)
-        //        {
-        //            GetNextPrompt();
-        //            pending_response = (Prompt)Random.Range(0, 5);
-        //            timer_bufferNextLine = -1;
-        //            //timer_waitingForPlayer = 5;
-        //        }
-        //    }
-
-        //}
-    }
-
-    public void GetNextPrompt()
-    {
-        if (personality == null || personality.Count < 1)
-        {
-            current_prompt = (Prompt)Random.Range(0, 5);
-            SendText(current_prompt);
-            return;
-        }
-        current_prompt = personality[(int)Random.Range(0, personality.Count)];
-        SendText(current_prompt);
 
     }
 
@@ -102,19 +96,28 @@ public class ShowManager : MonoBehaviour
 
         if (status == InteractionStatus.InteractionCompleted)
         {
-            lastline = historyItems[historyItems.Count - 1].Event.Text;
-           if (stage == 1)
-           {
-                stage = 0;
-                pending_response = (Prompt)Random.Range(0, 5);
-           }
-           else
-           {
-              stage = 1;
-
-
-           }
-
+            // lastline = historyItems[historyItems.Count - 1].Event.Text;
+            lastline = historyItems[0].Event.Text;
+            stage ++;
+           // if (stage == 0)
+           // {
+           //      stage = 1;
+           //
+           //    //  pending_response = (Prompt)Random.Range(0, 5);
+           // }
+           // else if (stage == 2)
+           // {
+           //      stage = 3;
+           //
+           //    //  pending_response = (Prompt)Random.Range(0, 5);
+           // }
+           // else if (stage == 4)
+           // {
+           //      stage = 0;
+           //
+           //    //  pending_response = (Prompt)Random.Range(0, 5);
+           // }
+           if(stage >=4){stage = 0;}
            timer_bufferNextLine = responseTime;
 
         }
@@ -132,18 +135,17 @@ public class ShowManager : MonoBehaviour
 
         if (status == InteractionStatus.InteractionCompleted)
         {
+            lastline = historyItems[0].Event.Text;
 
-           if (stage == 1)
-           {
-                stage = 0;
-                pending_response = (Prompt)Random.Range(0, 5);
-           }
-           else
-           {
-              stage = 1;
-
-
-           }
+              stage ++;
+           // if (stage == 1)
+           // {
+           //    stage = 2;
+           // }
+           // else if (stage == 3)
+           // {
+           //    stage = 4;
+           // }
 
            timer_bufferNextLine = responseTime;
 
@@ -158,11 +160,12 @@ public class ShowManager : MonoBehaviour
     public void PromptResponse(int _response)
     {
 
+      Prompt response = (Prompt)_response;
+      soundManager.PlaySound(response);
 
 
-
-        stage = (stage + 1) % 3;
-        if ((Prompt)_response == current_prompt)
+      //  stage = (stage + 1) % 3;
+        if (response == current_prompt)
         {
             score++;
             if (text_result) { text_result.text = "correct: " + score.ToString(); }
@@ -176,6 +179,8 @@ public class ShowManager : MonoBehaviour
         }
         timer_bufferNextLine = 5;
     }
+
+
     public void PromptResponse(Prompt _response)
     {
 
@@ -185,13 +190,13 @@ public class ShowManager : MonoBehaviour
         {
             score++;
             if (text_result) { text_result.text = "correct: " + score.ToString(); }
-            AskFor_PositiveResponse();
+          //  AskFor_PositiveResponse();
         }
         else
         {
             score--;
             if (text_result) { text_result.text = "wrong: " + score.ToString(); }
-            AskFor_NegativeResponse();
+          //  AskFor_NegativeResponse();
         }
         timer_bufferNextLine = 5;
     }
@@ -211,21 +216,21 @@ public class ShowManager : MonoBehaviour
     }
 
 
-    public void SendText(int _prompt)
-    {
-      current_prompt = (Prompt)_prompt;
-        if ((Prompt)_prompt == Prompt.joke)
-        { AskFor_Joke(); }
-        else if ((Prompt)_prompt == Prompt.sad)
-        { AskFor_SadStory(); }
-        else if ((Prompt)_prompt == Prompt.intro)
-        { AskFor_Intro(); }
-        else if ((Prompt)_prompt == Prompt.outro)
-        { AskFor_Outro(); }
-        else
-        { AskFor_Weird(); }
-
-    }
+    // public void SendText(int _prompt)
+    // {
+    //   current_prompt = (Prompt)_prompt;
+    //     if ((Prompt)_prompt == Prompt.joke)
+    //     { AskFor_Joke(); }
+    //     else if ((Prompt)_prompt == Prompt.sad)
+    //     { AskFor_SadStory(); }
+    //     else if ((Prompt)_prompt == Prompt.intro)
+    //     { AskFor_Intro(); }
+    //     else if ((Prompt)_prompt == Prompt.outro)
+    //     { AskFor_Outro(); }
+    //     else
+    //     { AskFor_Weird(); }
+    //
+    // }
 
     public void SendText(Prompt _prompt)
     {
@@ -245,25 +250,25 @@ public class ShowManager : MonoBehaviour
 
     public void RespondToHost()
     {
-      Prompt prompt = current_prompt;
-      SO_hostPrompt responseList = funnyPrompts;
+      // Prompt prompt = current_prompt;
+      // SO_hostPrompt responseList = funnyPrompts;
+      //
+      // if(prompt == Prompt.sad){responseList = sadPrompts;}
+      // if(prompt == Prompt.intro){responseList = introPrompts;}
+      // if(prompt == Prompt.outro){responseList = outroPrompts;}
+      // if(prompt == Prompt.weird){responseList = weirdPrompts;}
+      //
+      //
+      //   string newtext = "say something about the stuff";
+      //
+      //   if (responseList.text_response != null && responseList.text_response.Count > 1)
+      //   {
+      //       newtext = responseList.text_input[(int)Random.Range(0, responseList.text_input.Count)];
+      //   }
 
-      if(prompt == Prompt.sad){responseList = sadPrompts;}
-      if(prompt == Prompt.intro){responseList = introPrompts;}
-      if(prompt == Prompt.outro){responseList = outroPrompts;}
-      if(prompt == Prompt.weird){responseList = weirdPrompts;}
 
 
-        string newtext = "say something about the stuff";
-
-        if (responseList.text_response != null && responseList.text_response.Count > 1)
-        {
-            newtext = responseList.text_input[(int)Random.Range(0, responseList.text_input.Count)];
-        }
-
-
-
-        guest.SendText(newtext);
+        guest.SendText(lastline);
     }
 
 
@@ -276,9 +281,12 @@ public class ShowManager : MonoBehaviour
             newtext = _promptList.text_input[(int)Random.Range(0, _promptList.text_input.Count)];
         }
 
-
-
-        InworldController.Instance.CurrentCharacter.SendText(newtext + " " + lastline);
+        host_question = hostQuestionList.text_input[Random.Range(0,hostQuestionList.text_input.Count)] + " " + newtext;
+        newtext = host_question;
+      //  InworldController.Instance.CurrentCharacter.SendText(newtext);
+      //  guest.SendText(newtext );
+        guest.SendText(newtext);
+        player.SendText(newtext);
     }
 
     public void AskFor_Joke()

@@ -19,7 +19,9 @@ namespace Inworld.Sample
     /// </summary>
     public class InworldPlayer : MonoBehaviour
     {
+      public string host_question;
         #region Inspector Variables
+        [SerializeField] string host_name;
         [SerializeField] InworldCameraController m_CameraController;
         [SerializeField] GameObject m_GlobalChatCanvas;
         [SerializeField] GameObject m_TriggerCanvas;
@@ -50,6 +52,14 @@ namespace Inworld.Sample
             InworldController.Instance.CurrentCharacter.SendText(m_InputField.text);
             m_InputField.text = null;
         }
+
+        public void SendText(string _text)
+        {
+host_question = _text;
+            InworldController.Instance.CurrentCharacter.SendText(_text);
+            m_InputField.text = null;
+        }
+
         public void BackToLobby()
         {
             if (!m_RTCanvas)
@@ -115,30 +125,66 @@ namespace Inworld.Sample
             {
                 if (!m_Bubbles.ContainsKey(item.UtteranceId))
                 {
+
+
                     if (item.Event.Routing.Source.IsPlayer())
                     {
-                        m_Bubbles[item.UtteranceId] = Instantiate(m_BubbleLeft, m_ContentRT);
-                        m_Bubbles[item.UtteranceId].SetBubble(InworldAI.User.Name, InworldAI.Settings.DefaultThumbnail);
-                    }
+                       m_Bubbles[item.UtteranceId] = Instantiate(m_BubbleLeft, m_ContentRT);
+                       m_Bubbles[item.UtteranceId].SetBubble("Host:", InworldAI.Settings.DefaultThumbnail);
+                      if(host_question.Length < 5){return;}
+
+                       m_Bubbles[item.UtteranceId].Text = host_question;
+                       return;
+                    }//InworldAI.User.Name""
+                    // else if (item != null && item.Event != null && item.Event.Routing != null && item.Event.Routing.Source != null && m_Characters[item.Event.Routing.Source.Id] != null && m_Characters[item.Event.Routing.Source.Id].name == "Funny")
+                    // {
+                    //     m_Bubbles[item.UtteranceId] = Instantiate(m_BubbleLeft, m_ContentRT);
+                    //     if (m_Characters.ContainsKey(item.Event.Routing.Source.Id))
+                    //     {
+                    //         InworldCharacter source = m_Characters[item.Event.Routing.Source.Id];
+                    //         m_Bubbles[item.UtteranceId].SetBubble(source.CharacterName, source.Data.Thumbnail);
+                    //     }
+                    // }
                     else if (item.Event.Routing.Source.IsAgent())
                     {
-                        m_Bubbles[item.UtteranceId] = Instantiate(m_BubbleRight, m_ContentRT);
-                        if (m_Characters.ContainsKey(item.Event.Routing.Source.Id))
-                        {
-                            InworldCharacter source = m_Characters[item.Event.Routing.Source.Id];
-                            m_Bubbles[item.UtteranceId].SetBubble(source.CharacterName, source.Data.Thumbnail);
-                        }
+
+                          if(m_Characters[item.Event.Routing.Source.Id].name == host_name)
+                          {
+                            m_Bubbles[item.UtteranceId] = Instantiate(m_BubbleLeft, m_ContentRT);
+                            if (m_Characters.ContainsKey(item.Event.Routing.Source.Id))
+                            {
+                                InworldCharacter source = m_Characters[item.Event.Routing.Source.Id];
+                                m_Bubbles[item.UtteranceId].SetBubble(source.CharacterName, source.Data.Thumbnail);
+                            }
+                          }
+                          else if (item.Event.Routing.Source.IsAgent())
+                          {
+                              m_Bubbles[item.UtteranceId] = Instantiate(m_BubbleRight, m_ContentRT);
+                              if (m_Characters.ContainsKey(item.Event.Routing.Source.Id))
+                              {
+                                  InworldCharacter source = m_Characters[item.Event.Routing.Source.Id];
+                                  m_Bubbles[item.UtteranceId].SetBubble(source.CharacterName, source.Data.Thumbnail);
+                              }
+                          }
                     }
                 }
+
                 if(item.Event.SourceType != Grpc.TextEvent.Types.SourceType.TypedIn)
                 {
 
-                  m_Bubbles[item.UtteranceId].Text = item.Event.Text + "- -";
+                    string displayText = item.Event.Text;
+                  //   string[] splitstring = item.Event.Text.Split(" - ");
+                  // if(splitstring.Length > 1)
+                  // {displayText = splitstring[0];}
+
+                  m_Bubbles[item.UtteranceId].Text = displayText;
                   _SetContentHeight();
                 }
 
             }
         }
+
+
         void _ClearHistoryLog()
         {
             foreach (KeyValuePair<string, ChatBubble> kvp in m_Bubbles)

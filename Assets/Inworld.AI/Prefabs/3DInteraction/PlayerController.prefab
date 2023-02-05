@@ -592,8 +592,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 900, y: -376.6667}
-  m_SizeDelta: {x: 1500, y: 700}
+  m_AnchoredPosition: {x: 900, y: -359.8}
+  m_SizeDelta: {x: 1500, y: 898.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1966692565
 CanvasRenderer:
@@ -908,6 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46a8612debd4af69b9f7d688f59ac9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  host_name: 
   m_CameraController: {fileID: 467126463096742539}
   m_GlobalChatCanvas: {fileID: 425627533}
   m_TriggerCanvas: {fileID: 0}
