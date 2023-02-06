@@ -294,6 +294,7 @@ namespace Inworld
             while (m_Client.GetIncomingEvent(out InworldPacket packet))
             {
                 OnPacketReceived?.Invoke(packet);
+                Debug.Log(packet);
             }
 
             if (m_Client.GetAudioChunk(out AudioChunk audioChunkEvent))
